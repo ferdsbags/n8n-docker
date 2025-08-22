@@ -1,10 +1,10 @@
-# fly.toml app configuration file generated for n8n-chat on 2025-08-22T03:01:36Z
+# fly.toml app configuration file generated for n8n-chat on 2025-08-22T03:42:52Z
 #
 # See https://fly.io/docs/reference/configuration/ for information about how to use this file.
 #
 
 app = 'n8n-chat'
-primary_region = 'cdg'
+primary_region = 'sin'
 
 [build]
 
