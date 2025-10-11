@@ -1,0 +1,11 @@
+name: n8n keep-alive
+on:
+  schedule:
+    - cron: "*/30 * * * *"
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    steps:
+      - run: |
+          sleep $((RANDOM % 300))
+          curl -fsS https://n8n-chat-4jit.onrender.com/healthz
