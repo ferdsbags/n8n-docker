@@ -1,11 +1,15 @@
 name: n8n keep-alive
+
 on:
   schedule:
-    - cron: "*/30 * * * *"
+    - cron: "*/30 * * * *"  # every 30 min
+  workflow_dispatch:        # <-- enables the “Run workflow” button manually
+
 jobs:
   ping:
     runs-on: ubuntu-latest
     steps:
       - run: |
-          sleep $((RANDOM % 300))
+          echo "Starting keep-alive ping..."
+          sleep $((RANDOM % 300))   # random delay up to 5 min
           curl -fsS https://n8n-chat-4jit.onrender.com/healthz
