@@ -2,7 +2,7 @@ name: n8n keep-alive
 
 on:
   schedule:
-    - cron: "*/30 * * * *"  # every 30 min
+    - cron: "*/10 * * * *"  # every 30 min
   workflow_dispatch:        # <-- enables the “Run workflow” button manually
 
 jobs:
