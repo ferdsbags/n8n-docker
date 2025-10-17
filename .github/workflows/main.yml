@@ -22,9 +22,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Ping Supabase API
+        env:
+          SUPABASE_ANON_KEY: ${{ secrets.SUPABASE_ANON_KEY }}
         run: |
           echo "[$(date)] Starting Supabase keep-alive ping..."
           sleep $((RANDOM % 240))   # random delay up to 4 minutes
-          curl -fsS "https://aws-1-ap-southeast-1.pooler.supabase.com:6543"
+          curl -fsS -H "apikey: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InN4em1td2V0bnVrb3NxZnFoYmRvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTU4NDQ2NDYsImV4cCI6MjA3MTQyMDY0Nn0.6H5aafb0AKjeXpcgq7--_tJpHCDJd1R3ayRQYh5uIPU" \
+            https://https://sxzmmwetnukosqfqhbdo.supabase.co/rest/v1/ \
             || echo "Supabase ping failed"
-            
