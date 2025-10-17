@@ -1,15 +1,32 @@
-name: n8n keep-alive
+name: Keep n8n & Supabase Awake
 
 on:
   schedule:
-    - cron: "*/9 * * * *"  # every 9 min
-  workflow_dispatch:        # <-- enables the “Run workflow” button manually
+    - cron: "*/9 * * * *"  # every 9 minutes
+  workflow_dispatch:        # allows manual run
 
 jobs:
-  ping:
+  ping_n8n:
+    name: Ping n8n (Render)
     runs-on: ubuntu-latest
     steps:
-      - run: |
-          echo "Starting keep-alive ping..."
-          sleep $((RANDOM % 240))   # random delay up to 4 min
-          curl -fsS https://n8n-chat-4jit.onrender.com/healthz
+      - name: Ping n8n Render Service
+        run: |
+          echo "[$(date)] Starting n8n keep-alive ping..."
+          sleep $((RANDOM % 240))   # random delay up to 4 minutes
+          curl -fsS https://n8n-chat-4jit.onrender.com/healthz \
+            || echo "n8n ping failed"
+
+  ping_supabase:
+    name: Ping Supabase
+    runs-on: ubuntu-latest
+    steps:
+      - name: Ping Supabase API
+        env:
+          SUPABASE_ANON_KEY: ${{ secrets.SUPABASE_ANON_KEY }}
+        run: |
+          echo "[$(date)] Starting Supabase keep-alive ping..."
+          sleep $((RANDOM % 240))   # random delay up to 4 minutes
+          curl -fsS -H "apikey: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InN4em1td2V0bnVrb3NxZnFoYmRvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTU4NDQ2NDYsImV4cCI6MjA3MTQyMDY0Nn0.6H5aafb0AKjeXpcgq7--_tJpHCDJd1R3ayRQYh5uIPU" \
+            https://https://sxzmmwetnukosqfqhbdo.supabase.co/rest/v1/ \
+            || echo "Supabase ping failed"
