@@ -27,3 +27,4 @@ jobs:
           sleep $((RANDOM % 240))   # random delay up to 4 minutes
           curl -fsS "https://aws-1-ap-southeast-1.pooler.supabase.com:6543"
             || echo "Supabase ping failed"
+            
