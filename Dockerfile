@@ -4,8 +4,10 @@ FROM n8nio/n8n:latest
 # Switch to root to install packages
 USER root
 
-# Install GraphicsMagick on Alpine
-RUN apk add --no-cache graphicsmagick
+# Install GraphicsMagick (Debian-based image)
+RUN apt-get update \
+ && apt-get install -y graphicsmagick \
+ && rm -rf /var/lib/apt/lists/*
 
 # Switch back to node user for security
 USER node
